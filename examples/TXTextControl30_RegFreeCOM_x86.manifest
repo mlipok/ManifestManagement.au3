@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity
+      type="win32"
+      name="TXTextControl30.RegFreeCOM.x86"
+      version="1.0.0.0"
+      processorArchitecture="x86" />
+
+  <file name="tx4ole30.ocx">
+    <comClass clsid="{538CEC01-AC0C-11EB-BA91-7085C299DB80}" progid="TIS.TX.TextControl.30" />
+    <comClass clsid="{538CEC1D-AC0C-11EB-BA91-7085C299DB80}" progid="TIS.TX.LicManager.30" />
+    <comClass clsid="{538CEC09-AC0C-11EB-BA91-7085C299DB80}" progid="TIS.TX.ButtonBarControl.30" />
+    <comClass clsid="{538CEC0D-AC0C-11EB-BA91-7085C299DB80}" progid="TIS.TX.RulerBarControl.30" />
+    <comClass clsid="{538CEC11-AC0C-11EB-BA91-7085C299DB80}" progid="TIS.TX.StatusBarControl.30" />
+  </file>
+</assembly>
