@@ -1,4 +1,4 @@
-﻿#AutoIt3Wrapper_UseX64={{USE_X64}}
+#AutoIt3Wrapper_UseX64={{USE_X64}}
 #AutoIt3Wrapper_UseUpx=N
 
 #AutoIt3Wrapper_OutFile={{OUT_FILE}}
@@ -99,16 +99,19 @@ Func _Example()
 	If @error Then
 		Local $iError = @error
 		Local $iExtended = @extended
+		Local $sDiagnostic = _ManifestManagement_Activation_Diagnostic($iExtended, @Compiled, $__REGFREE_MANIFEST_RESOURCE_ID, $sDLLPath, $sManifestPath)
+		ConsoleWrite('! Activation diagnostic: ' & $sDiagnostic & '; CreateActCtxW GetLastError=' & $iExtended & @CRLF)
 
 		MsgBox($MB_ICONERROR, 'Registration-Free COM test', _
 				'Failed to activate Registration-Free COM.' & @CRLF & @CRLF & _
 				'Process: ' & (@AutoItX64 ? 'x64' : 'x86') & @CRLF & _
 				'Mode: ' & (@Compiled ? 'PE RT_MANIFEST resource' : 'physical manifest file') & @CRLF & _
 				(@Compiled ? _
-					('PE file: ' & @ScriptFullPath & @CRLF & 'Resource ID: ' & $__REGFREE_MANIFEST_RESOURCE_ID) : _
-					('Manifest: ' & $sManifestPath)) & @CRLF & @CRLF & _
+				('PE file: ' & @ScriptFullPath & @CRLF & 'Resource ID: ' & $__REGFREE_MANIFEST_RESOURCE_ID) : _
+				('Manifest: ' & $sManifestPath)) & @CRLF & @CRLF & _
+				'Diagnostic: ' & $sDiagnostic & @CRLF & _
 				'@error = ' & $iError & @CRLF & _
-				'GetLastError = ' & $iExtended)
+				'CreateActCtxW GetLastError = ' & $iExtended & ' (0x' & Hex($iExtended, 8) & ')')
 
 		Return SetError(3, $iExtended, 0)
 	EndIf
@@ -124,8 +127,10 @@ Func _Example()
 	If Not IsObj($oObject) Then
 		_ManifestManagement_Deactivate($hActCtx, $iActCtxCookie)
 
+		Local $sObjectDiagnostic = _ManifestManagement_Activation_Diagnostic(0, @Compiled, $__REGFREE_MANIFEST_RESOURCE_ID, $sDLLPath, $sManifestPath)
 		MsgBox($MB_ICONERROR, 'Registration-Free COM test', _
 				'Failed to create the COM object.' & @CRLF & @CRLF & _
+				'Diagnostic: ' & $sObjectDiagnostic & @CRLF & _
 				'Process: ' & (@AutoItX64 ? 'x64' : 'x86') & @CRLF & _
 				'ProgID: ' & $__REGFREE_PROGID & @CRLF & _
 				'DLL: ' & $sDLLPath)
