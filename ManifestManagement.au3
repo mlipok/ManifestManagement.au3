@@ -814,6 +814,37 @@ Func _ManifestManagement_MergeMany(ByRef $aManifestInputs, $sManifestOut)
 EndFunc   ;==>_ManifestManagement_MergeMany
 
 ; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_Manifest_VerifyWindows
+; Description ...: Asks Windows SxS to parse a physical manifest without activating its context.
+; Return values .: Success - 1; failure - 0, with native CreateActCtxW error in @extended.
+; ===============================================================================================================================
+Func _ManifestManagement_Manifest_VerifyWindows($sManifestPath)
+	Local $tSourcePath = DllStructCreate('wchar[' & StringLen($sManifestPath) + 1 & ']')
+	DllStructSetData($tSourcePath, 1, $sManifestPath)
+	Local $tACTCTX = DllStructCreate( _
+			'dword cbSize;' & _
+			'dword dwFlags;' & _
+			'ptr lpSource;' & _
+			'ushort wProcessorArchitecture;' & _
+			'ushort wLangId;' & _
+			'ptr lpAssemblyDirectory;' & _
+			'ptr lpResourceName;' & _
+			'ptr lpApplicationName;' & _
+			'ptr hModule')
+	DllStructSetData($tACTCTX, 'cbSize', DllStructGetSize($tACTCTX))
+	DllStructSetData($tACTCTX, 'lpSource', DllStructGetPtr($tSourcePath))
+	Local $aCreate = DllCall('kernel32.dll', 'handle', 'CreateActCtxW', 'ptr', DllStructGetPtr($tACTCTX))
+	Local $iCallError = @error
+	If $iCallError Or Not IsArray($aCreate) Then Return SetError(1, $iCallError, 0)
+	If $aCreate[0] = Ptr(-1) Then
+		Local $iNativeError = __ManifestManagement__GetLastError()
+		Return SetError(2, $iNativeError, 0)
+	EndIf
+	DllCall('kernel32.dll', 'none', 'ReleaseActCtx', 'handle', $aCreate[0])
+	Return 1
+EndFunc   ;==>_ManifestManagement_Manifest_VerifyWindows
+
+; #FUNCTION# ====================================================================================================================
 ; Name ..........: _ManifestManagement_ActivateFromFile
 ; Description ...: Creates and activates a Windows Activation Context from a physical manifest file.
 ; Syntax ........: _ManifestManagement_ActivateFromFile($sManifestPath)
