@@ -859,7 +859,10 @@ EndFunc   ;==>_ManifestManagement_Manifest_VerifyWindows
 ; Example .......: No
 ; ===============================================================================================================================
 Func _ManifestManagement_ActivateFromFile($sManifestPath)
-	Return __ManifestManagement__Activate($sManifestPath, 0)
+	Local $vResult = __ManifestManagement__Activate($sManifestPath, 0)
+	Local $iError = @error
+	Local $iExtended = @extended
+	Return SetError($iError, $iExtended, $vResult)
 EndFunc   ;==>_ManifestManagement_ActivateFromFile
 
 ; #FUNCTION# ====================================================================================================================
@@ -878,7 +881,10 @@ EndFunc   ;==>_ManifestManagement_ActivateFromFile
 ; Example .......: No
 ; ===============================================================================================================================
 Func _ManifestManagement_ActivateFromPE($sPEPath, $iResourceID)
-	Return __ManifestManagement__Activate($sPEPath, $iResourceID)
+	Local $vResult = __ManifestManagement__Activate($sPEPath, $iResourceID)
+	Local $iError = @error
+	Local $iExtended = @extended
+	Return SetError($iError, $iExtended, $vResult)
 EndFunc   ;==>_ManifestManagement_ActivateFromPE
 
 ; #FUNCTION# ====================================================================================================================
@@ -1180,10 +1186,14 @@ Func __ManifestManagement__Activate($sSourcePath, $iResourceID)
 	EndIf
 
 	Local $aCreateActCtx = DllCall('kernel32.dll', 'handle', 'CreateActCtxW', 'ptr', DllStructGetPtr($tACTCTX))
-	If @error Or Not IsArray($aCreateActCtx) Then Return SetError(1, __ManifestManagement__GetLastError(), 0)
+	Local $iDllCallError = @error
+	If $iDllCallError Or Not IsArray($aCreateActCtx) Then Return SetError(1, $iDllCallError, 0)
 
 	Local $hActCtx = $aCreateActCtx[0]
-	If $hActCtx = Ptr(-1) Then Return SetError(2, __ManifestManagement__GetLastError(), 0)
+	If $hActCtx = Ptr(-1) Then
+		Local $iNativeError = __ManifestManagement__GetLastError()
+		Return SetError(2, $iNativeError, 0)
+	EndIf
 
 	Local $aActivateActCtx = DllCall('kernel32.dll', 'bool', 'ActivateActCtx', 'handle', $hActCtx, 'ulong_ptr*', 0)
 	If @error Or Not IsArray($aActivateActCtx) Or Not $aActivateActCtx[0] Then
