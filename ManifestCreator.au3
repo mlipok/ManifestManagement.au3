@@ -1,4 +1,4 @@
-﻿#RequireAdmin
+#RequireAdmin
 #AutoIt3Wrapper_UseX64=n
 #AutoIt3Wrapper_UseUpx=N
 
@@ -338,11 +338,23 @@ Func __ManifestCreator_FullRegistryScan_Create($sDLLPath, $bTargetX64, $sArchite
 	ConsoleWrite("#" & @ScriptLineNumber & " - " & @CRLF)
 	Local $sManifest = _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, $aCOMClasses, $vTypeLibs, $sIID)
 	If @error Then Return SetError(40, @extended, 0)
+	Local $sValidationReason = ''
+	If Not _ManifestManagement_Manifest_Validate($sManifest, $sValidationReason, $sOutputDir) Then
+		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Generated manifest validation failed:' & @CRLF & $sValidationReason)
+		Return SetError(43, @error, 0)
+	EndIf
 
 	__ManifestCreator_FileOperation_Log('Create', $sManifestPath)
 	If Not _ManifestManagement_File_WriteUTF8($sManifestPath, $sManifest) Then
 		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Unable to write manifest:' & @CRLF & $sManifestPath)
 		Return SetError(41, @extended, 0)
+	EndIf
+	If Not _ManifestManagement_Manifest_VerifyWindows($sManifestPath) Then
+		Local $iNativeError = @extended
+		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Windows rejected the generated manifest.' & @CRLF & _
+				'CreateActCtxW GetLastError: ' & $iNativeError & @CRLF & _
+				_ManifestManagement_Activation_Diagnostic($iNativeError, False, 0, $sDLLPath, $sManifestPath))
+		Return SetError(44, $iNativeError, 0)
 	EndIf
 
 	ConsoleWrite("#" & @ScriptLineNumber & " - " & @CRLF)
@@ -525,11 +537,23 @@ Func __ManifestCreator_SingleClass_Create($sDLLPath, $bTargetX64, $sArchitecture
 	Local $sManifest = _ManifestManagement_Manifest_Build($sDLLName, $sTLBPath, $sArchitecture, _
 			$sProgID, $sCLSID, $sIID, $sDescription, $sThreadingModel, $sTypeLibID, $sTypeLibVersion)
 	If @error Then Return SetError(61, @extended, 0)
+	Local $sValidationReason = ''
+	If Not _ManifestManagement_Manifest_Validate($sManifest, $sValidationReason, $sOutputDir) Then
+		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Generated manifest validation failed:' & @CRLF & $sValidationReason)
+		Return SetError(64, @error, 0)
+	EndIf
 
 	__ManifestCreator_FileOperation_Log('Create', $sManifestPath)
 	If Not _ManifestManagement_File_WriteUTF8($sManifestPath, $sManifest) Then
 		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Unable to write manifest:' & @CRLF & $sManifestPath)
 		Return SetError(62, @extended, 0)
+	EndIf
+	If Not _ManifestManagement_Manifest_VerifyWindows($sManifestPath) Then
+		Local $iNativeError = @extended
+		MsgBox($MB_ICONERROR, $__MANIFESTCREATOR_TITLE, 'Windows rejected the generated manifest.' & @CRLF & _
+				'CreateActCtxW GetLastError: ' & $iNativeError & @CRLF & _
+				_ManifestManagement_Activation_Diagnostic($iNativeError, False, 0, $sDLLPath, $sManifestPath))
+		Return SetError(65, $iNativeError, 0)
 	EndIf
 
 	ConsoleWrite("#" & @ScriptLineNumber & " - " & @CRLF)
