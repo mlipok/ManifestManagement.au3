@@ -577,6 +577,13 @@ ManifestMerge.exe ^
 
 The resulting activation context can then contain Registration-Free COM information for both libraries.
 
+## Manifest validation and diagnostics
+
+ManifestCreator.au3 normalizes generated CLSID and TypeLib identifiers to the Windows {GUID} form. It checks the generated XML and referenced files before writing the manifest. After writing, it asks Windows to parse the manifest with CreateActCtxW without activating the context. A generated test script is created only after these checks succeed.
+
+The generated test reports the native CreateActCtxW error code when activation fails. Its focused diagnostic checks for a missing RT_MANIFEST resource, invalid manifest XML or Windows SxS schema, an EXE/DLL architecture mismatch, and missing files referenced by a physical manifest. An unclassified failure retains its native error code for further investigation.
+
+Run tests/ManifestManagementSmoke.au3 with AutoIt to check GUID normalization, XML validation, PE architecture detection, resource lookup, and native error propagation. These checks do not replace a real activation test with the target COM DLL.
 ## Safety and limitations
 
 Temporary COM registration modifies the Windows COM registry and therefore normally requires administrator privileges.
