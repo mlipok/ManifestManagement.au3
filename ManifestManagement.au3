@@ -6,6 +6,7 @@
 
 Global Const $__MANIFEST_MANAGEMENT__MSXML = 'Msxml2.DOMDocument.6.0'
 Global Const $__MANIFEST_MANAGEMENT__ACTCTX_FLAG_RESOURCE_NAME_VALID = 0x00000008
+Global Const $__MANIFEST_MANAGEMENT__RT_MANIFEST = 24
 
 Global Const $MANIFEST_COMCLASS_PROGID = 0
 Global Const $MANIFEST_COMCLASS_CLSID = 1
@@ -1159,6 +1160,97 @@ Func __ManifestManagement__FileExistsInAssembly($oAssembly, $sFileName)
 	Return False
 EndFunc   ;==>__ManifestManagement__FileExistsInAssembly
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_ManifestResource_Exists
+; Description ...: Checks whether the running EXE contains an RT_MANIFEST with the requested numeric ID.
+; Return values .: True or False; @error indicates that the Win32 lookup itself failed.
+; ===============================================================================================================================
+Func _ManifestManagement_ManifestResource_Exists($iResourceID)
+	Local $aModule = DllCall('kernel32.dll', 'handle', 'GetModuleHandleW', 'ptr', 0)
+	If @error Or Not IsArray($aModule) Or Not $aModule[0] Then Return SetError(1, 0, False)
+	Local $aResource = DllCall('kernel32.dll', 'handle', 'FindResourceW', 'handle', $aModule[0], 'ptr', Ptr($iResourceID), 'ptr', Ptr($__MANIFEST_MANAGEMENT__RT_MANIFEST))
+	If @error Or Not IsArray($aResource) Then Return SetError(2, 0, False)
+	Return $aResource[0] <> 0
+EndFunc   ;==>_ManifestManagement_ManifestResource_Exists
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_PE_Architecture_Get
+; Description ...: Reads the PE Machine field from an EXE or DLL without loading it.
+; Return values .: 'x86', 'x64', or '' for unsupported or invalid PE files.
+; ===============================================================================================================================
+Func _ManifestManagement_PE_Architecture_Get($sPath)
+	Local $hFile = FileOpen($sPath, $FO_READ + $FO_BINARY)
+	If $hFile = -1 Then Return SetError(1, 0, '')
+	Local $bDOS = FileRead($hFile, 64)
+	If BinaryLen($bDOS) <> 64 Or BinaryMid($bDOS, 1, 2) <> Binary('0x4D5A') Then
+		FileClose($hFile)
+		Return SetError(2, 0, '')
+	EndIf
+	Local $iPEOffset = 0
+	For $i = 0 To 3
+		$iPEOffset += __ManifestManagement__Byte_Get($bDOS, 61 + $i) * (256 ^ $i)
+	Next
+	If $iPEOffset < 64 Or $iPEOffset > 1048576 Or Not FileSetPos($hFile, $iPEOffset, 0) Then
+		FileClose($hFile)
+		Return SetError(3, 0, '')
+	EndIf
+	Local $bPE = FileRead($hFile, 6)
+	FileClose($hFile)
+	If BinaryLen($bPE) <> 6 Or BinaryMid($bPE, 1, 4) <> Binary('0x50450000') Then Return SetError(4, 0, '')
+	Local $iMachine = __ManifestManagement__Byte_Get($bPE, 5) + 256 * __ManifestManagement__Byte_Get($bPE, 6)
+	Switch $iMachine
+		Case 0x014C
+			Return 'x86'
+		Case 0x8664
+			Return 'x64'
+	EndSwitch
+	Return SetError(5, $iMachine, '')
+EndFunc   ;==>_ManifestManagement_PE_Architecture_Get
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_Activation_Diagnostic
+; Description ...: Reports a confirmed RegFree COM failure category and preserves the native error separately.
+; Parameters ....: $iNativeError - GetLastError from CreateActCtxW; $bPE - compiled test mode.
+;                  $iResourceID - requested RT_MANIFEST ID; $sDLLPath - expected COM DLL path.
+;                  $sManifestPath - physical manifest path in script mode.
+; Return values .: English diagnostic category.
+; ===============================================================================================================================
+Func _ManifestManagement_Activation_Diagnostic($iNativeError, $bPE, $iResourceID, $sDLLPath, $sManifestPath = '')
+	If $bPE Then
+		Local $bResource = _ManifestManagement_ManifestResource_Exists($iResourceID)
+		If Not @error And Not $bResource Then Return 'Missing RT_MANIFEST resource'
+	EndIf
+	If Not FileExists($sDLLPath) Then Return 'Missing or incorrectly named DLL referenced by the manifest'
+	Local $sDLLArch = _ManifestManagement_PE_Architecture_Get($sDLLPath)
+	If Not @error And $sDLLArch <> '' And $sDLLArch <> (@AutoItX64 ? 'x64' : 'x86') Then Return 'Architecture mismatch between the EXE and COM DLL'
+	If Not $bPE And FileExists($sManifestPath) Then
+		Local $hFile = FileOpen($sManifestPath, $FO_READ)
+		If $hFile <> -1 Then
+			Local $sXML = FileRead($hFile)
+			FileClose($hFile)
+			Local $sReason = ''
+			Local $sDir = StringRegExpReplace($sManifestPath, '\\[^\\]+$', '')
+			If Not _ManifestManagement_Manifest_Validate($sXML, $sReason, $sDir) Then
+				If @error = 7 Then Return 'Missing or incorrectly named DLL referenced by the manifest: ' & $sReason
+				Return 'Invalid manifest XML or manifest structure: ' & $sReason
+			EndIf
+		EndIf
+	EndIf
+	Switch $iNativeError
+		Case 14000, 14001, 14004, 14010, 14011
+			Return 'Invalid manifest XML or Windows manifest schema'
+		Case 14003, 14007
+			Return 'Missing assembly or referenced DLL; check manifest file names'
+		Case 1812, 1813, 1814
+			If $bPE Then Return 'Missing RT_MANIFEST resource'
+	EndSwitch
+	Return 'Unclassified activation failure; inspect the native error and SideBySide event log'
+EndFunc   ;==>_ManifestManagement_Activation_Diagnostic
+
+; #INTERNAL_USE_ONLY# ===========================================================================================================
+Func __ManifestManagement__Byte_Get($bData, $iOffset)
+	Return Dec(StringTrimLeft(String(BinaryMid($bData, $iOffset, 1)), 2))
+EndFunc   ;==>__ManifestManagement__Byte_Get
 ; #INTERNAL_USE_ONLY# ===========================================================================================================
 Func __ManifestManagement__Activate($sSourcePath, $iResourceID)
 	Local $tSourcePath = DllStructCreate('wchar[' & StringLen($sSourcePath) + 1 & ']')
