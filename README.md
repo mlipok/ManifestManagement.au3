@@ -626,6 +626,4 @@ or their x64 equivalents.
 
 ## License
 
-No license is specified by this repository template.
-
-Add the license appropriate for your project before publishing if required.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
