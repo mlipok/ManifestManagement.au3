@@ -1,4 +1,4 @@
-﻿#include-once
+#include-once
 
 #include <AutoItConstants.au3>
 #include <FileConstants.au3>
@@ -474,7 +474,10 @@ Func _ManifestManagement_Manifest_Build($sDLLName, $sTLBPath, $sArchitecture, $s
 		$vTypeLibs = $aTypeLibs
 	EndIf
 
-	Return _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, $aClasses, $vTypeLibs, $sIID)
+	Local $sResult = _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, $aClasses, $vTypeLibs, $sIID)
+	Local $iError = @error
+	Local $iExtended = @extended
+	Return SetError($iError, $iExtended, $sResult)
 EndFunc   ;==>_ManifestManagement_Manifest_Build
 
 ; #FUNCTION# ====================================================================================================================
@@ -517,10 +520,12 @@ Func _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, ByRef 
 
 	For $i = 0 To UBound($aClasses) - 1
 		Local $sProgID = $aClasses[$i][$MANIFEST_COMCLASS_PROGID]
-		Local $sCLSID = $aClasses[$i][$MANIFEST_COMCLASS_CLSID]
+		Local $sCLSID = _ManifestManagement_GUID_Normalize($aClasses[$i][$MANIFEST_COMCLASS_CLSID])
+		If @error Then Return SetError(3, $i, '')
 		Local $sDescription = $aClasses[$i][$MANIFEST_COMCLASS_DESCRIPTION]
 		Local $sThreadingModel = $aClasses[$i][$MANIFEST_COMCLASS_THREADINGMODEL]
-		Local $sTypeLibID = $aClasses[$i][$MANIFEST_COMCLASS_TYPELIB_ID]
+		Local $sTypeLibID = _ManifestManagement_GUID_Normalize($aClasses[$i][$MANIFEST_COMCLASS_TYPELIB_ID])
+		If @error Then Return SetError(4, $i, '')
 
 		Local $sAttributes = ' clsid="' & __ManifestManagement__XML_Escape($sCLSID) & '"'
 		If $sProgID <> '' Then $sAttributes &= ' progid="' & __ManifestManagement__XML_Escape($sProgID) & '"'
@@ -534,7 +539,9 @@ Func _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, ByRef 
 	If IsArray($vTypeLibs) Then
 		For $i = 0 To UBound($vTypeLibs) - 1
 			If Not $vTypeLibs[$i][$MANIFEST_TYPELIB_EMBEDDED] Then ContinueLoop
-			$sXML &= '    <typelib tlbid="' & __ManifestManagement__XML_Escape($vTypeLibs[$i][$MANIFEST_TYPELIB_ID]) & _
+			Local $sEmbeddedTLBID = _ManifestManagement_GUID_Normalize($vTypeLibs[$i][$MANIFEST_TYPELIB_ID])
+			If @error Or $sEmbeddedTLBID = '' Then Return SetError(5, $i, '')
+			$sXML &= '    <typelib tlbid="' & __ManifestManagement__XML_Escape($sEmbeddedTLBID) & _
 					'" version="' & __ManifestManagement__XML_Escape($vTypeLibs[$i][$MANIFEST_TYPELIB_VERSION]) & _
 					'" helpdir="" />' & @CRLF
 		Next
@@ -548,8 +555,10 @@ Func _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, ByRef 
 			If $vTypeLibs[$i][$MANIFEST_TYPELIB_PATH] = '' Then ContinueLoop
 
 			Local $sTLBName = StringRegExpReplace($vTypeLibs[$i][$MANIFEST_TYPELIB_PATH], '^.*\\', '')
+			Local $sExternalTLBID = _ManifestManagement_GUID_Normalize($vTypeLibs[$i][$MANIFEST_TYPELIB_ID])
+			If @error Or $sExternalTLBID = '' Then Return SetError(6, $i, '')
 			$sXML &= '  <file name="' & __ManifestManagement__XML_Escape($sTLBName) & '">' & @CRLF & _
-					'    <typelib tlbid="' & __ManifestManagement__XML_Escape($vTypeLibs[$i][$MANIFEST_TYPELIB_ID]) & _
+					'    <typelib tlbid="' & __ManifestManagement__XML_Escape($sExternalTLBID) & _
 					'" version="' & __ManifestManagement__XML_Escape($vTypeLibs[$i][$MANIFEST_TYPELIB_VERSION]) & _
 					'" helpdir="" />' & @CRLF & _
 					'  </file>' & @CRLF
@@ -557,8 +566,96 @@ Func _ManifestManagement_Manifest_BuildClasses($sDLLName, $sArchitecture, ByRef 
 	EndIf
 
 	$sXML &= '</assembly>' & @CRLF
+	Local $sValidationReason = ''
+	If Not _ManifestManagement_Manifest_Validate($sXML, $sValidationReason) Then Return SetError(7, @error, '')
 	Return $sXML
 EndFunc   ;==>_ManifestManagement_Manifest_BuildClasses
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_GUID_Normalize
+; Description ...: Returns a strict braced GUID for Windows manifests. An empty optional GUID remains empty.
+; ===============================================================================================================================
+Func _ManifestManagement_GUID_Normalize($sGUID)
+	$sGUID = StringStripWS($sGUID, 3)
+	If $sGUID = '' Then Return ''
+	If StringLeft($sGUID, 1) = '{' And StringRight($sGUID, 1) = '}' Then $sGUID = StringMid($sGUID, 2, StringLen($sGUID) - 2)
+	If Not StringRegExp($sGUID, '(?i)^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$') Then Return SetError(1, 0, '')
+	Return '{' & StringUpper($sGUID) & '}'
+EndFunc   ;==>_ManifestManagement_GUID_Normalize
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: _ManifestManagement_Manifest_Validate
+; Description ...: Checks XML syntax and the manifest fields used by generated RegFree COM assemblies.
+; Parameters ....: $sXML - Manifest XML text; $sReason - human readable error; $sBaseDir - optional referenced-file directory.
+; Return values .: Success - 1; failure - 0 with @error set.
+; Remarks .......: Windows CreateActCtxW remains the authority for complete SxS schema validation.
+; ===============================================================================================================================
+Func _ManifestManagement_Manifest_Validate($sXML, ByRef $sReason, $sBaseDir = '')
+	$sReason = ''
+	Local $oDoc = ObjCreate($__MANIFEST_MANAGEMENT__MSXML)
+	If Not IsObj($oDoc) Then Return SetError(1, 0, 0)
+	$oDoc.async = False
+	$oDoc.resolveExternals = False
+	$oDoc.validateOnParse = False
+	$oDoc.setProperty('SelectionLanguage', 'XPath')
+	If Not $oDoc.loadXML($sXML) Then
+		$sReason = 'Invalid XML: ' & $oDoc.parseError.reason
+		Return SetError(2, $oDoc.parseError.errorCode, 0)
+	EndIf
+	Local $oRoot = $oDoc.documentElement
+	If Not IsObj($oRoot) Then
+		$sReason = 'Manifest has no document element.'
+		Return SetError(3, 0, 0)
+	EndIf
+	If $oRoot.baseName <> 'assembly' Or $oRoot.namespaceURI <> 'urn:schemas-microsoft-com:asm.v1' Then
+		$sReason = 'Expected an assembly element in the Windows assembly namespace.'
+		Return SetError(3, 0, 0)
+	EndIf
+	If $oRoot.getAttribute('manifestVersion') <> '1.0' Then
+		$sReason = 'Missing or unsupported manifestVersion.'
+		Return SetError(4, 0, 0)
+	EndIf
+	Local $oIdentity = $oRoot.selectSingleNode('./*[local-name()="assemblyIdentity"]')
+	If Not IsObj($oIdentity) Then
+		$sReason = 'Missing assemblyIdentity.'
+		Return SetError(5, 0, 0)
+	EndIf
+	If String($oIdentity.getAttribute('name')) = '' Or String($oIdentity.getAttribute('version')) = '' Then
+		$sReason = 'Missing assemblyIdentity name or version.'
+		Return SetError(5, 0, 0)
+	EndIf
+	For $oFile In $oRoot.selectNodes('./*[local-name()="file"]')
+		Local $sName = String($oFile.getAttribute('name'))
+		If $sName = '' Or StringInStr($sName, '\') Or StringInStr($sName, '/') Then
+			$sReason = 'Invalid file name in manifest: ' & $sName
+			Return SetError(6, 0, 0)
+		EndIf
+		If $sBaseDir <> '' And Not FileExists($sBaseDir & '\' & $sName) Then
+			$sReason = 'Manifest references a missing file: ' & $sName
+			Return SetError(7, 0, 0)
+		EndIf
+		For $oClass In $oFile.selectNodes('./*[local-name()="comClass"]')
+			Local $sCLSID = String($oClass.getAttribute('clsid'))
+			If $sCLSID = '' Or _ManifestManagement_GUID_Normalize($sCLSID) <> $sCLSID Then
+				$sReason = 'Invalid comClass CLSID: ' & $sCLSID
+				Return SetError(8, 0, 0)
+			EndIf
+			Local $sTLBID = String($oClass.getAttribute('tlbid'))
+			If $sTLBID <> '' And _ManifestManagement_GUID_Normalize($sTLBID) <> $sTLBID Then
+				$sReason = 'Invalid comClass TypeLib GUID: ' & $sTLBID
+				Return SetError(9, 0, 0)
+			EndIf
+		Next
+		For $oTypeLib In $oFile.selectNodes('./*[local-name()="typelib"]')
+			Local $sTypeLibGUID = String($oTypeLib.getAttribute('tlbid'))
+			If $sTypeLibGUID = '' Or _ManifestManagement_GUID_Normalize($sTypeLibGUID) <> $sTypeLibGUID Then
+				$sReason = 'Invalid typelib GUID: ' & $sTypeLibGUID
+				Return SetError(10, 0, 0)
+			EndIf
+		Next
+	Next
+	Return 1
+EndFunc   ;==>_ManifestManagement_Manifest_Validate
 
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: _ManifestManagement_TestScript_CreateFromTemplate
