@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity
+      type="win32"
+      name="debenupdflibraryax1811.RegFreeCOM.x86"
+      version="1.0.0.0"
+      processorArchitecture="x86" />
+  <!-- ProgID: DebenuPDFLibraryAX1811.PDFLibrary -->
+  <!-- CLSID: {6876E803-14CA-4ABF-9075-24F087AE8868} -->
+  <!-- IID returned by ObjName(): {12146AAC-0348-4A1A-A207-742FAAF8C80D} -->
+  <file name="debenupdflibraryax1811.dll">
+    <comClass
+        clsid="{6876E803-14CA-4ABF-9075-24F087AE8868}"
+        progid="DebenuPDFLibraryAX1811.PDFLibrary"
+        description="PDFLibrary" threadingModel="Apartment" tlbid="{AEFB7871-635B-4CCA-A348-DABDD77CCAA7}" />
+  </file>
+  <file name="debenupdflibraryax1811.tlb">
+    <typelib tlbid="{AEFB7871-635B-4CCA-A348-DABDD77CCAA7}" version="18.11" helpdir="" />
+  </file>
+</assembly>
