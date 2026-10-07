@@ -1,0 +1,120 @@
+<?xml version="1.0"?><assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+    <assemblyIdentity name="Native.ChilkatAxRegFree" version="1.0.0.0" type="win32"/>
+    <file name="ChilkatAx-10.1.2.0-win32.dll" asmv2:size="11671176">
+        <hash xmlns="urn:schemas-microsoft-com:asm.v2">
+            <dsig:Transforms>
+                <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity"/>
+            </dsig:Transforms>
+            <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256"/>
+            <dsig:DigestValue>sVkE7Z4Dc37CmXE8aSBMqdaxUULSOD6agX4Ke65Lzcg=</dsig:DigestValue>
+        </hash>
+        <typelib version="1.0" helpdir="" resourceid="0" flags="HASDISKIMAGE" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}"/>
+        <comClass clsid="{9b59c46f-400d-4af2-a2fe-af831721fd94}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Asn.1" description="ChilkatAsn Class"/>
+        <comClass clsid="{d4dc09ab-4809-4531-8dc6-dcf6d1bd4f06}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Atom.1" description="ChilkatAtom Class"/>
+        <comClass clsid="{d0c40de6-2c8f-4e6a-b899-6a4235af50e4}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.AuthAws.1" description="ChilkatAuthAws Class"/>
+        <comClass clsid="{da9cdf9c-2924-43de-a3da-ac776c4423dc}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.AuthAzureSAS.1" description="ChilkatAuthAzureSAS Class"/>
+        <comClass clsid="{723c1fa4-a391-439b-b407-cf5cbb1d3fd4}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.AuthAzureStorage.1" description="ChilkatAuthAzureStorage Class"/>
+        <comClass clsid="{1450d264-1de9-4141-94e4-f97591aa3efa}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.AuthGoogle.1" description="ChilkatAuthGoogle Class"/>
+        <comClass clsid="{383fd506-f6c8-4a8a-9aaf-23ff3ae19c2c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.AuthUtil.1" description="ChilkatAuthUtil Class"/>
+        <comClass clsid="{9b94cbaa-93fe-42dd-8246-5299e5fc8639}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.BinData.1" description="ChilkatBinData Class"/>
+        <comClass clsid="{15018142-2d50-487c-b31b-5149dfdaaf5a}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Bounce.1" description="ChilkatBounce Class"/>
+        <comClass clsid="{cfdb9c89-9dc4-4488-9c8c-7161a1a39a10}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Bz2.1" description="ChilkatBz2 Class"/>
+        <comClass clsid="{83f684f7-96ea-44ad-8da0-532153622d10}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Cache.1" description="ChilkatCache Class"/>
+        <comClass clsid="{e6981c5b-1cb5-4add-919d-fe7435139441}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Cert.1" description="ChilkatCert Class"/>
+        <comClass clsid="{05e8abe3-3d35-494e-8c8e-d2982876ef4e}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.CertChain.1" description="ChilkatCertChain Class"/>
+        <comClass clsid="{83c7948a-7723-4b2c-aa3d-2945070b22a1}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.CertStore.1" description="ChilkatCertStore Class"/>
+        <comClass clsid="{46e04cab-7223-4aa0-b478-a731cc1b1ab1}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Cgi.1" description="ChilkatCgi Class"/>
+        <comClass clsid="{515baf9a-b788-423f-9b59-164321d1de3e}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Charset.1" description="ChilkatCharset Class"/>
+        <comClass clsid="{275179de-27cc-4e0b-9650-9ac0f3e8869f}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.CkDateTime.1" description="CkDateTime Class"/>
+        <comClass clsid="{978079b0-486b-4589-bb35-52107403879d}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.CkString.1" description="CkString Class"/>
+        <comClass clsid="{8711226d-a68e-4baf-bdcf-bf2242e6e2a5}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.CodeSign.1" description="ChilkatCodeSign Class"/>
+        <comClass clsid="{a8744e82-260e-4be3-a522-e59e5e01d0d3}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Compression.1" description="ChilkatCompression Class"/>
+        <comClass clsid="{75d57da6-48d3-4a84-8020-56b83ae9d5b7}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Crypt2.1" description="ChilkatCrypt2 Class"/>
+        <comClass clsid="{0b2fc2b9-4bf5-4943-b68d-b681064aed1d}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Csr.1" description="ChilkatCsr Class"/>
+        <comClass clsid="{583778ff-91b2-414e-baa3-bce59438e48c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Csv.1" description="ChilkatCsv Class"/>
+        <comClass clsid="{b026d6e6-4cc2-4bc8-ae07-8da2b488c09a}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Dh.1" description="ChilkatDh Class"/>
+        <comClass clsid="{6a9e4dd4-6aca-4214-83d6-248799dc1bfc}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.DirTree.1" description="CkDirTree Class"/>
+        <comClass clsid="{d3147872-ae87-40e3-a527-c5beb74d8f03}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Dkim.1" description="ChilkatDkim Class"/>
+        <comClass clsid="{c2852821-d52d-4db0-8491-70c7a9a6269d}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Dns.1" description="ChilkatDns Class"/>
+        <comClass clsid="{84b6e12c-5a68-4b3e-88f0-ef9985aeaa1a}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Dsa.1" description="ChilkatDsa Class"/>
+        <comClass clsid="{17fbfca3-90c1-4b04-9d71-058e67ac28c9}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.DtObj.1" description="DtObj Class"/>
+        <comClass clsid="{019daa55-fa95-442f-afa1-c9d922cc1b64}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Ecc.1" description="ChilkatEcc Class"/>
+        <comClass clsid="{95d609ca-ca45-4196-9485-7feaf332e1b1}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.EdDSA.1" description="ChilkatEdDSA Class"/>
+        <comClass clsid="{c1d8a204-c977-4c76-ac99-e0334dd7379f}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Email.1" description="ChilkatEmail Class"/>
+        <comClass clsid="{569c0db7-3809-4765-8fa0-efe30707da14}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.EmailBundle.1" description="ChilkatEmailBundle Class"/>
+        <comClass clsid="{40626520-7e15-4ee2-a12e-d0a50aea2c36}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.FileAccess.1" description="CkFileAccess Class"/>
+        <comClass clsid="{2977db5e-b4fc-41a0-9323-1519f7e50697}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Ftp2.1" description="ChilkatFtp2 Class"/>
+        <comClass clsid="{99e4e348-a550-4a7c-b692-b67e34bc6fff}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Global.1" description="ChilkatGlobal Class"/>
+        <comClass clsid="{fc5aff9e-88ca-449c-94cd-5e6922d5cdab}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Gzip.1" description="ChilkatGzip Class"/>
+        <comClass clsid="{1fb1cdf5-c969-49f6-954a-bc8977aa0d83}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Hashtable.1" description="ChilkatHashtable Class"/>
+        <comClass clsid="{60f2c1b7-2250-49b3-b84c-c52f9695a9bb}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.HtmlToText.1" description="HtmlToText Class"/>
+        <comClass clsid="{9348a1ca-a6ea-4a41-84cc-d3cf89e78c54}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.HtmlToXml.1" description="HtmlToXml Class"/>
+        <comClass clsid="{5aa619dd-b188-4986-8991-3ed9c41ba427}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Http.1" description="ChilkatHttp Class"/>
+        <comClass clsid="{d96ae9c9-3810-4bd0-862e-1f41320e96bb}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.HttpRequest.1" description="ChilkatHttpRequest Class"/>
+        <comClass clsid="{e5189a86-9ebb-4925-b5db-d78915a320e0}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.HttpResponse.1" description="ChilkatHttpResponse Class"/>
+        <comClass clsid="{68b58087-f1dd-4f9a-8944-e6528bbdbee2}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Imap.1" description="ChilkatImap Class"/>
+        <comClass clsid="{e0cdc631-b5e4-4093-ab06-7b121ddeed65}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.JavaKeyStore.1" description="ChilkatJavaKeyStore Class"/>
+        <comClass clsid="{7a29628b-73d1-4c0c-9f4c-5747ccd22578}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.JsonArray.1" description="ChilkatJsonArray Class"/>
+        <comClass clsid="{ac00defe-0dcd-4b3e-b3fe-ec9555291186}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.JsonObject.1" description="ChilkatJsonObject Class"/>
+        <comClass clsid="{81a5ba7a-19dd-48f2-99e8-1b7fefc97ef8}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Jwe.1" description="ChilkatJwe Class"/>
+        <comClass clsid="{b801034d-51c0-4058-a649-2bcb9e2ec362}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Jws.1" description="ChilkatJws Class"/>
+        <comClass clsid="{2bd013bb-7e9f-43bc-832f-808fdc08f9f1}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Jwt.1" description="ChilkatJwt Class"/>
+        <comClass clsid="{d716db9a-424a-4d2b-bd26-88190a75c5c7}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Log.1" description="ChilkatLog Class"/>
+        <comClass clsid="{108f42a1-2832-41d4-8150-e4ad1c5ab4c5}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.MailMan.1" description="ChilkatMailMan Class"/>
+        <comClass clsid="{c0d5cc8f-47c0-469c-9e83-96bc00f60922}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Mailboxes.1" description="Mailboxes Class"/>
+        <comClass clsid="{87a5ae83-9fe6-4aa4-9620-9f4dc920359e}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.MessageSet.1" description="MessageSet Class"/>
+        <comClass clsid="{e5096370-0d13-413b-a044-c4be6164421c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Mht.1" description="ChilkatMht Class"/>
+        <comClass clsid="{069aeba0-c218-4814-8a15-95a65144c5cd}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Mime.1" description="ChilkatMime Class"/>
+        <comClass clsid="{bfed365c-a6ba-4f1d-885f-be5d216eaaa4}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Ntlm.1" description="ChilkatNtlm Class"/>
+        <comClass clsid="{d14b04fd-577e-4451-be5c-639417f70953}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.OAuth1.1" description="ChilkatOAuth1 Class"/>
+        <comClass clsid="{54ec5a49-6986-4a66-95aa-6bea6ca17373}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.OAuth2.1" description="ChilkatOAuth2 Class"/>
+        <comClass clsid="{4d9d5e7f-7890-4baa-808f-1f71b9da2c42}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Pdf.1" description="ChilkatPdf Class"/>
+        <comClass clsid="{459bd6ce-76a4-4b84-9b20-47e1aec5f833}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Pem.1" description="ChilkatPem Class"/>
+        <comClass clsid="{7e40347f-3e30-45ff-b78a-28ce5eb5fbca}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Pfx.1" description="ChilkatPfx Class"/>
+        <comClass clsid="{34b7324a-30d1-4bdf-bca2-2f0735bd4d23}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Pkcs11.1" description="ChilkatPkcs11 Class"/>
+        <comClass clsid="{49d6ea9d-7a89-4eef-8706-b0115b5a8704}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.PrivateKey.1" description="PrivateKey Class"/>
+        <comClass clsid="{2ef316b2-1c96-47fc-97bc-3e533fcb4bea}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Prng.1" description="ChilkatPrng Class"/>
+        <comClass clsid="{02dbb81f-fb79-4616-8846-952ea0b968ec}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.PublicKey.1" description="PublicKey Class"/>
+        <comClass clsid="{4f15539d-379b-4e6e-a230-41ab6dbfe493}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Rest.1" description="ChilkatRest Class"/>
+        <comClass clsid="{f0d30bb2-9533-4127-9381-1d5c02de1104}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Rsa.1" description="ChilkatRsa Class"/>
+        <comClass clsid="{e1400bc2-d019-42cd-9412-4ec85060ac72}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Rss.1" description="ChilkatRss Class"/>
+        <comClass clsid="{3671f75a-bb70-4b4c-beac-907af12d0669}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SCard.1" description="ChilkatSCard Class"/>
+        <comClass clsid="{342d7898-e035-493d-8114-1f6882964000}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SFtp.1" description="ChilkatSFtp Class"/>
+        <comClass clsid="{18d8fba9-a76b-46d6-b65c-641555669e15}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SFtpDir.1" description="ChilkatSFtpDir Class"/>
+        <comClass clsid="{c4c35535-cb6c-421a-9155-26f8aa3f20a7}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SFtpFile.1" description="ChilkatSFtpFile Class"/>
+        <comClass clsid="{4552b51d-6bb5-4a61-a8a5-60402f74a2f6}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.ScMinidriver.1" description="ChilkatScMinidriver Class"/>
+        <comClass clsid="{0a38ead9-f461-4511-831c-81ec666bcecb}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Scp.1" description="ChilkatScp Class"/>
+        <comClass clsid="{debb50a6-aa93-4997-8faf-799a3f968c6c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Secrets.1" description="ChilkatSecrets Class"/>
+        <comClass clsid="{8442aab9-5949-47e5-bcc0-2585b2575120}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SecureString.1" description="ChilkatSecureString Class"/>
+        <comClass clsid="{1da1b369-daff-4c3e-b1e9-90c658963ef2}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.ServerSentEvent.1" description="ChilkatServerSentEvent Class"/>
+        <comClass clsid="{6e89ffbd-78e8-427a-8d1c-dadf8982687f}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Socket.1" description="ChilkatSocket Class"/>
+        <comClass clsid="{6c085d62-48d8-4e77-a74d-016cf070d758}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Spider.1" description="ChilkatSpider Class"/>
+        <comClass clsid="{187fe2ca-f5db-41ff-806a-4a5220e8017f}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Ssh.1" description="ChilkatSsh Class"/>
+        <comClass clsid="{afcbd6f2-6efc-489f-8131-b356abd55058}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SshKey.1" description="ChilkatSshKey Class"/>
+        <comClass clsid="{b84ae7a8-eb87-48d1-934d-747fc790a5a1}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.SshTunnel.1" description="ChilkatSshTunnel Class"/>
+        <comClass clsid="{d15ef94f-3480-40b9-81a3-a20714209cc6}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Stream.1" description="ChilkatStream Class"/>
+        <comClass clsid="{80d834ae-25f1-4daa-a7cc-92b3528a1f15}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.StringArray.1" description="CkStringArray Class"/>
+        <comClass clsid="{46e43039-66f2-4a6f-93f6-a0a783a5f4ab}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.StringBuilder.1" description="ChilkatStringBuilder Class"/>
+        <comClass clsid="{9bfff029-26b9-47aa-bf86-a05f37c0331c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.StringTable.1" description="ChilkatStringTable Class"/>
+        <comClass clsid="{e4aa4141-ece6-4a26-a2aa-aa40cf0c8bae}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Tar.1" description="ChilkatTar Class"/>
+        <comClass clsid="{f0381e13-3f4d-4138-add5-4e0b8cb5f5ee}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Task.1" description="ChilkatTask Class"/>
+        <comClass clsid="{037c7f5b-bce3-46a1-94b3-8b0e935b65b8}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.TaskChain.1" description="ChilkatTaskChain Class"/>
+        <comClass clsid="{cc243aa7-d036-4a48-a19e-9a7805694e43}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.TrustedRoots.1" description="ChilkatTrustedRoots Class"/>
+        <comClass clsid="{726c048c-dc6b-4047-aa51-87147e4479b3}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.UnixCompress.1" description="UnixCompress Class"/>
+        <comClass clsid="{57d7607f-e8f6-44f8-ac90-4cae41f46bbf}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Upload.1" description="ChilkatUpload Class"/>
+        <comClass clsid="{dc5afb0c-154c-41c8-be5f-808ee298d983}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Url.1" description="ChilkatUrl Class"/>
+        <comClass clsid="{2ff0fb67-6ffc-413e-b6a8-fb89569c9515}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.WebSocket.1" description="ChilkatWebSocket Class"/>
+        <comClass clsid="{d4f42bb9-fe62-4ba4-96d0-51514365ce08}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Xml.1" description="ChilkatXml Class"/>
+        <comClass clsid="{5fd55788-fc1d-4170-9a0d-872deccd75e9}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.XmlCertVault.1" description="ChilkatXmlCertVault Class"/>
+        <comClass clsid="{b55ebfd8-cab0-48e1-a3d9-b703f4c0c851}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.XmlDSig.1" description="ChilkatXmlDSig Class"/>
+        <comClass clsid="{81b25d70-5e7f-4e19-a9b4-34530187c8dd}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.XmlDSigGen.1" description="ChilkatXmlDSigGen Class"/>
+        <comClass clsid="{7376da30-790f-4e26-97d7-b7e74df4c9ba}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Xmp.1" description="ChilkatXmp Class"/>
+        <comClass clsid="{e73ad304-ec5e-439e-9b6c-c7a7ed47eefb}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.Zip.1" description="ChilkatZip Class"/>
+        <comClass clsid="{40afba31-3419-4747-9c20-a2625921279c}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.ZipCrc.1" description="ChilkatZipCrc Class"/>
+        <comClass clsid="{2131fd26-e88a-43d9-89bd-d8d19f4347d5}" threadingModel="Apartment" tlbid="{004cb902-f437-4d01-bd85-9e18836da5c2}" progid="Chilkat.ZipEntry.1" description="ChilkatZipEntry Class"/>
+    </file>
+<file name="debenupdflibraryax1811.dll">
+    <comClass clsid="{6876E803-14CA-4ABF-9075-24F087AE8868}" progid="DebenuPDFLibraryAX1811.PDFLibrary" description="PDFLibrary" threadingModel="Apartment" tlbid="{AEFB7871-635B-4CCA-A348-DABDD77CCAA7}"/>
+  </file><file name="debenupdflibraryax1811.tlb">
+    <typelib tlbid="{AEFB7871-635B-4CCA-A348-DABDD77CCAA7}" version="18.11" helpdir=""/>
+  </file></assembly>
