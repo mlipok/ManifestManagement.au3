@@ -103,6 +103,31 @@ For a 64-bit COM DLL, use:
 #AutoIt3Wrapper_UseX64=y
 ```
 
+## DLL location for .NET Framework COM components
+
+For a straightforward registration-free deployment, compile the AutoIt
+application and place the managed COM DLL and its required private
+dependencies beside the executable.
+
+> **Important:** In a compiled AutoIt application, `@ScriptDir` is the
+> executable directory. When running an `.au3` script, the executable
+> hosting the CLR is `AutoIt3.exe` or `AutoIt3_x64.exe`. Placing DLLs
+> beside the script does not necessarily make them discoverable by
+> the CLR.
+
+Successfully creating an activation context does not prove that the CLR
+can locate the managed assembly or instantiate its COM classes.
+Validate the deployment by creating every required class without relying
+on an existing COM registration.
+
+Other assembly locations may require additional CLR configuration.
+The directory containing an external manifest should not be assumed
+to be the CLR application base directory.
+
+This guidance concerns deployment of managed COM components.
+ManifestCreator's registry-based generation workflows currently target
+native COM DLLs.
+
 ## `ManifestCreator.au3` workflow
 
 A typical workflow is:
